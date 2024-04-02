@@ -1,0 +1,5 @@
+{
+  "yaml.schemas": {
+    "swaggerviewer:openapi": "file:///home/cleasky/work/openapi-test/openapi.yaml"
+  }
+}

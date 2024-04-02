@@ -1,0 +1,53 @@
+openapi: "3.0.3"
+
+info:
+  title: "サンプルAPI"
+  description: "サンプルとして作成したAPIです"
+  version: "1.0.0"
+
+paths:
+  "/users":
+    get:
+      summary: "ユーザ一覧の取得"
+      tags: ["users"]
+      deprecated: false
+      responses:
+        "200":
+          description: "成功"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "ユーザ一覧の取得：成功"
+  "/users/{userId}":
+    get:
+      summary: "ユーザの取得"
+      tags: ["users"]
+      deprecated: false
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: "成功"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "ユーザの取得：成功"
+
+servers:
+- url: "http://localhost:3000"
+  description: "ローカル環境"
+- url: "http://sample.com"
+  description: "本番環境"
+
+tags:
+  - name: "users"
+    description: "ユーザの操作"
+  - name: "posts"
+    description: "記事の操作"
+  - name: "shops"
+    description: "店舗の操作"
