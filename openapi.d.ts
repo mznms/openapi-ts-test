@@ -35,6 +35,26 @@ export interface paths {
         };
       };
     };
+    /** ユーザの更新 */
+    put: {
+      /** @description 更新するユーザ情報 */
+      requestBody: {
+        content: {
+          "application/json": {
+            name?: string;
+            email?: string;
+          };
+        };
+      };
+      responses: {
+        /** @description 成功 */
+        200: {
+          content: {
+            "application/json": string;
+          };
+        };
+      };
+    };
   };
 }
 
