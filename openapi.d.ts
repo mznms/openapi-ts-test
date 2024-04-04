@@ -12,7 +12,30 @@ export interface paths {
         /** @description 成功 */
         200: {
           content: {
-            "application/json": string;
+            "application/json": components["schemas"]["Users"];
+          };
+        };
+      };
+    };
+    /** ユーザの更新 */
+    put: {
+      /** @description 更新するユーザ情報 */
+      requestBody: {
+        content: {
+          "application/json": components["schemas"]["User"];
+        };
+      };
+      responses: {
+        /** @description 更新成功 */
+        200: {
+          content: {
+            "application/json": components["schemas"]["Users"];
+          };
+        };
+        /** @description 予期せぬエラー */
+        default: {
+          content: {
+            "application/json": components["schemas"]["Error"];
           };
         };
       };
@@ -23,34 +46,15 @@ export interface paths {
     get: {
       parameters: {
         path: {
-          userId: string;
+          /** @description 取得するユーザのID */
+          id: number;
         };
       };
       responses: {
-        /** @description 成功 */
+        /** @description 更新成功 */
         200: {
           content: {
-            "application/json": string;
-          };
-        };
-      };
-    };
-    /** ユーザの更新 */
-    put: {
-      /** @description 更新するユーザ情報 */
-      requestBody: {
-        content: {
-          "application/json": {
-            name?: string;
-            email?: string;
-          };
-        };
-      };
-      responses: {
-        /** @description 成功 */
-        200: {
-          content: {
-            "application/json": string;
+            "application/json": components["schemas"]["User"];
           };
         };
       };
@@ -60,7 +64,56 @@ export interface paths {
 
 export type webhooks = Record<string, never>;
 
-export type components = Record<string, never>;
+export interface components {
+  schemas: {
+    /**
+     * @example {
+     *   "id": 10,
+     *   "name": "John Doe",
+     *   "email": "j-d@example.com"
+     * }
+     */
+    User: {
+      /**
+       * Format: int64
+       * @description ユーザID
+       */
+      id: number;
+      /** @description ユーザ名 */
+      name: string;
+      /**
+       * Format: email
+       * @description ユーザのメールアドレス
+       */
+      email: string;
+    };
+    /**
+     * @example [
+     *   {
+     *     "id": 1,
+     *     "name": "John Doe",
+     *     "email": "john@example.com"
+     *   },
+     *   {
+     *     "id": 2,
+     *     "name": "Fumio Kishida",
+     *     "email": "fumio@example.jp"
+     *   }
+     * ]
+     */
+    Users: components["schemas"]["User"][];
+    Error: {
+      /** Format: int32 */
+      code?: number;
+      message: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
 
 export type $defs = Record<string, never>;
 
