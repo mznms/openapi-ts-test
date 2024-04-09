@@ -28,7 +28,7 @@ components:
       example:
         id: 10
         name: "John Doe"
-        email: "j-d@example.com"
+        email: "john@example.com"
     Users:
       type: array
       items:
@@ -82,7 +82,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Users"
+                $ref: "#/components/schemas/User"
         default:
           description: "予期せぬエラー"
           content:
@@ -95,7 +95,7 @@ paths:
       tags: ["users"]
       deprecated: false
       parameters:
-        - name: id
+        - name: userId
           in: path
           required: true
           schema:
@@ -108,9 +108,33 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+    delete:
+      summary: "ユーザの削除"
+      tags: ["users"]
+      deprecated: false
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "削除するユーザのID"
+      responses:
+        '200':
+          description: "削除成功"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        default:
+          description: "予期せぬエラー"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
 servers:
-- url: "http://localhost:3000"
+- url: "http://localhost:3001"
   description: "ローカル環境"
 - url: "http://sample.com"
   description: "本番環境"
